@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <title>OMPR Calculator</title>
+        <style>
+            #symbols{
+                height:300px;
+                width:220px;
+                background-color: black;
+                display:grid;
+                grid-template-columns:80px 80px 80px 80px;
+                border: 2px solid black;
+                border-radius: 10px;
+            }
+            #symbols button{
+                cursor: pointer;
+                background-color:bisque;
+                border: 2px solid black;
+                border-radius:30px;
+                color:black;
+                font-weight: bolder;
+                font-size:larger;
+            }
+            #symbols button:hover{
+                border:2px solid black;
+                background-color:yellowgreen;
+            }
+            input{
+                width:320px;
+                height:60px;
+                font-size: 50px;
+                border:none;
+                text-align:right;
+            }
+            body{
+                display:flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #calc{
+                height:400px;
+                width:325px;
+                background-color: black;
+                padding:40px;
+                border-radius: 20px;
+            }
+            #hist{
+                background-color: white;
+                height:30px;
+                width:320px;
+                border: none;
+                color:grey;
+                text-align: right;
+                font-weight: lighter;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="calc">
+            <div id="hist"></div>
+            <form>
+                <input type="text" id="eq">
+            </form>
+            <div id="symbols">
+                <button onclick="clr()">AC</button>
+                <button onclick="delf()">⌫</button>
+                <button onclick="conc('%')">%</button>
+                <button onclick="conc('/')">÷</button>
+                <button onclick="conc('7')">7</button>
+                <button onclick="conc('8')">8</button>
+                <button onclick="conc('9')">9</button>
+                <button onclick="conc('*')">×</button>
+                <button onclick="conc('4')">4</button>
+                <button onclick="conc('5')">5</button>
+                <button onclick="conc('6')">6</button>
+                <button onclick="conc('-')">-</button>
+                <button onclick="conc('1')">1</button>
+                <button onclick="conc('2')">2</button>
+                <button onclick="conc('3')">3</button>
+                <button onclick="conc('+')">+</button>
+                <button onclick="conc('e')">e</button>
+                <button onclick="conc('0')">0</button>
+                <button onclick="conc('.')">•</button>
+                <button onclick="finding()">=</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        function clr(){
+            document.getElementById("hist").innerHTML='';
+            document.getElementById("eq").value='';
+        }
+        function conc(w){
+            if(w!='e'){
+            document.getElementById("eq").value=document.getElementById("eq").value+w;
+            }
+            else{
+                document.getElementById("eq").value=document.getElementById("eq").value+"2.718281";
+            }
+        }
+        function finding(){
+            document.getElementById("hist").innerHTML=document.getElementById("eq").value;
+            document.getElementById("eq").value=eval(document.getElementById("eq").value);
+        }
+        function delf(){
+            var a=document.getElementById("eq").value;
+            if(a.length!=1){
+                document.getElementById("eq").value=a.slice(0,a.length-1)
+            }
+            else{
+                document.getElementById("eq").value=document.getElementById("hist").innerHTML;
+                document.getElementById("hist").innerHTML='';
+            }
+        }
+    </script>
+</html>
