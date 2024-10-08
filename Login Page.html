@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <title>OMPR Login Page</title>
+        <style>
+            body {
+                background-color: lightblue;
+                font-family: Arial, sans-serif;
+            }
+
+            #initial, #second {
+                position: absolute;
+                left: 50%;  
+                top: 50%;
+                transform: translate(-50%, -50%);
+                height: auto;
+                width: 350px;
+                border: 2px solid #333;
+                background-color: #f5deb3;
+                padding: 40px;
+                border-radius: 15px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+                display: none;
+            }
+
+            img {
+                height: 50%;
+                width: 50%;
+                margin-top: 20px;
+            }
+
+            #pic {
+                display: none;
+                text-align: center;
+            }
+
+            input[type="text"], input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"], button {
+                width: 100%;
+                background-color: orangered;
+                color: white;
+                padding: 10px;
+                margin: 10px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover, button:hover {
+                background-color: #45a049;
+            }
+
+            button {
+                background-color: #008CBA;
+            }
+
+            h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body onload="loading()">
+        <center>
+            <div id="pic">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0h60W7Oo7cz1xyHxPd5TSinkyjJqQWw9i7A&s">
+            </div>
+        </center>
+
+        <div id="initial">
+            <h2>Login</h2>
+            <form onsubmit="verify()">
+                <label for="us">Username:</label>
+                <input type="text" id="us" name="q1" required><br>
+                <label for="pass">Password:</label>
+                <input type="password" id="pass" name="q2" required><br>
+                <input type="submit" value="Login">
+                <button type="button" onclick="signup()">Sign Up</button>
+            </form>
+        </div>
+
+        <div id="second">
+            <h2>Sign Up</h2>
+            <form onsubmit="datacreate()">
+                <label for="us1">Enter Your Unique Username:</label>
+                <input type="text" id="us1" name="p2" required><br>
+                <label for="pass1">Set Your Password:</label>
+                <input type="password" id="pass1" name="p3" required><br>
+                <label for="pass2">Re-enter Your Password:</label>
+                <input type="password" id="pass2" name="p1" required><br>
+                <input type="submit" value="Create Account">
+            </form>
+        </div>
+    </body>
+    <script>
+        function loading() {
+            document.getElementById("initial").style.display = "block";
+            document.getElementById("second").style.display = "none";
+        }
+
+        var user = [];
+        var keys = [];
+
+        function verify() {
+            event.preventDefault();
+            var c = document.getElementById("us").value;
+            var d = document.getElementById("pass").value;
+            var flag = 0;
+            var fla = 0;
+            for (var i = 0; i < user.length; i++) {
+                if (user[i] == c) {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1) {
+                for (var i = 0; i < keys.length; i++) {
+                    if (keys[i] == d) {
+                        fla = 1;
+                        document.getElementById("pic").style.display = "block";
+                        document.getElementById("initial").style.display = "none";
+                        document.getElementById("second").style.display = "none";
+                        break;
+                    }
+                }
+                if (fla == 0) {
+                    window.alert("Entered Password is Wrong!!!");
+                    document.getElementById("pass").value = "";
+                }
+            } else {
+                window.alert("Invalid Username!!!");
+                document.getElementById("us").value = "";
+                document.getElementById("pass").value = "";
+            }
+        }
+
+        function signup() {
+            document.getElementById("second").style.display = "block";
+            document.getElementById("initial").style.display = "none";
+        }
+
+        function datacreate() {
+            event.preventDefault();
+            var f = document.getElementById("us1").value;
+            var flag = 0;
+            for (var i = 0; i < user.length; i++) {
+                if (user[i] == f)
+                    flag = 1;
+            }
+            if (flag != 0)
+                window.alert("Username already exists. Please Enter Unique Username.");
+            if (flag == 0) {
+                user.push(f);
+                var w = document.getElementById("pass1").value;
+                var q = document.getElementById("pass2").value;
+                if (w == q) {
+                    keys.push(w);
+                    document.getElementById("second").style.display = "none";
+                    document.getElementById("initial").style.display = "block";
+                    document.getElementById("us1").value = "";
+                    document.getElementById("pass1").value = "";
+                    document.getElementById("pass2").value = "";
+                } else {
+                    window.alert("Re-Entered Password does not match. Please try again.");
+                    document.getElementById("pass1").value = "";
+                    document.getElementById("pass2").value = "";
+                }
+            }
+        }
+    </script>
+</html>
